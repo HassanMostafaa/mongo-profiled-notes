@@ -1,7 +1,5 @@
 const UserModel = require("../models/UserMode");
 const SessionModel = require("../models/SessionModel");
-const mongoose = require("mongoose");
-//const session = require("express-session");
 const bcrypt = require("bcryptjs");
 
 const getAllUsers = async (req, res) => {
@@ -119,7 +117,6 @@ const updateCurrentUserNotes = async (req, res) => {
     );
     delete clientVersionUser.password;
 
-    // console.log(results);
     req.session.user.notes = notes;
     return res.status(200).json({
       request: "Update Current User Notes",
@@ -132,20 +129,34 @@ const updateCurrentUserNotes = async (req, res) => {
   }
 };
 
-const getCurrentUserNotes = async (req, res) => {
+const deleteUserById = async (req, res) => {
   try {
-    const { email } = req.body;
-    const results = await UserModel.findOne({ email });
-    const notes = results.notes;
-    return res
-      .status(200)
-      .json({ request: "Get Current User Notes", results: notes });
+    const { id } = req.body;
+    // console.log(id);
+    const results = await UserModel.findByIdAndDelete({ _id: id });
+
+    return res.status(200).json({ request: "delete user by id", results });
   } catch (error) {
     return res
       .status(400)
-      .json({ request: "Get Current User Notes", results: error.message });
+      .json({ request: "delete user by id", error: error.message });
   }
 };
+
+// const getCurrentUserNotes = async (req, res) => {
+//   try {
+//     const { email } = req.body;
+//     const results = await UserModel.findOne({ email });
+//     const notes = results.notes;
+//     return res
+//       .status(200)
+//       .json({ request: "Get Current User Notes", results: notes });
+//   } catch (error) {
+//     return res
+//       .status(400)
+//       .json({ request: "Get Current User Notes", results: error.message });
+//   }
+// };
 
 module.exports = {
   getAllUsers,
@@ -154,4 +165,5 @@ module.exports = {
   loginRequest,
   logoutRequest,
   updateCurrentUserNotes,
+  deleteUserById,
 };

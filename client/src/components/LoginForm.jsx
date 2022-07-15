@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "./../redux/currentUser/currentUserSlice";
 import { current } from "@reduxjs/toolkit";
+import { MutatingDots, Oval, TailSpin } from "react-loader-spinner";
 
 export const LoginForm = () => {
   const currentUser = useSelector((state) => state.currentUserReducer);
@@ -28,29 +29,35 @@ export const LoginForm = () => {
 
   return (
     <div className="container">
-      <form onSubmit={handleLogin}>
-        <h1>LoginPage</h1>
-        <p>email</p>
-        <input
-          type="text"
-          placeholder="email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          disabled={currentUser.loading ? true : false}
-        />
-        <p>password</p>
-        <input
-          type="password"
-          placeholder="password"
-          value={formData.password}
-          autoComplete="off"
-          onChange={(e) =>
-            setFormData({ ...formData, password: e.target.value })
-          }
-          disabled={currentUser.loading ? true : false}
-        />
-        <input type="submit" value="Login" />
-      </form>
+      <div className="login-form-area">
+        <form className="login-form" onSubmit={handleLogin}>
+          <p>E-mail</p>
+          <input
+            type="text"
+            placeholder="email"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            disabled={currentUser.loading ? true : false}
+          />
+          <p>Password</p>
+          <input
+            type="password"
+            placeholder="password"
+            value={formData.password}
+            autoComplete="off"
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            disabled={currentUser.loading ? true : false}
+          />
+          <input className="btn" type="submit" value="Login" />
+          {currentUser.loading && (
+            <TailSpin color="#000" height={80} width={80} />
+          )}
+        </form>
+      </div>
     </div>
   );
 };

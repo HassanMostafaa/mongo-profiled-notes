@@ -5,7 +5,11 @@ import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { AddNoteForm } from "../components/AddNoteForm";
-import { resetNotes, setNotes } from "../redux/notes/notesSlice";
+import {
+  resetNotes,
+  setNotes,
+  toggleNewNoteForm,
+} from "../redux/notes/notesSlice";
 import {
   logoutThunk,
   setUserState,
@@ -19,6 +23,9 @@ export const Home = () => {
   const [user, setUser] = useState({ email: "" });
   const [loading, setLoading] = useState(true);
   const notes = useSelector((state) => state.notesReducer.notes);
+  const showNewNoteForm = useSelector(
+    (state) => state.notesReducer.showNewNoteForm
+  );
 
   const handleLogout = async () => {
     dispatch(logoutThunk());
@@ -30,7 +37,7 @@ export const Home = () => {
     const res = await axios.get("/api/users/home");
     const data = await res.data;
 
-    console.log(JSON.parse(data.session).user);
+    //console.log(data);
 
     try {
       setUser(JSON.parse(data.session).user);
@@ -55,13 +62,35 @@ export const Home = () => {
       ) : user ? (
         <>
           <div>
-            <h3>User Info</h3>
-            <p>email : {user.email}</p>
-            <NotesList notes={notes} />
-            <div className="logout-btn">
-              <button onClick={handleLogout}>Logout</button>
-            </div>
-            <AddNoteForm user={user} />
+            <br />
+            <NotesList notes={notes} />{" "}
+            <button
+              className="btn"
+              onClick={() => {
+                window.scrollTo(0, 0);
+                dispatch(toggleNewNoteForm());
+              }}
+            >
+              ADD NOTE
+            </button>
+            {/* <button
+              style={{
+                fontSize: "20px",
+                borderRadius: "50%",
+                padding: "10px 15px",
+                position: "absolute",
+                bottom: "100px",
+                right: "100px",
+              }}
+              className="btn"
+              onClick={() => {
+                window.scrollTo(0, 0);
+                dispatch(toggleNewNoteForm());
+              }}
+            >
+              +
+            </button> */}
+            {showNewNoteForm && <AddNoteForm user={user} />}
           </div>
         </>
       ) : (

@@ -1,3 +1,13 @@
+$primary: #333;
+$secondary: #000;
+$action1: #f4f4f4;
+$action2: #fff;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,6 +15,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $primary;
 }
 
 code {
@@ -19,30 +30,126 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.116);
-  padding: 0 10%;
+  color: white;
+  background-color: $secondary;
+  //box-shadow: 0px 0px 20px #54898d1c;
+  padding: 20px 10%;
   a {
     margin-inline-start: 20px;
     text-decoration: none;
-    color: #000;
+    color: white;
   }
 }
+
+.login-form-area {
+  color: white;
+  margin: 20px auto;
+  .login-form {
+    width: 350px;
+    margin: 100px auto;
+    input {
+      border: 0;
+      outline: none;
+      padding: 8px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
 .notes {
-  padding: 10px;
-  border: 1px solid grey;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   margin: 20px 0;
   .note {
-    border-bottom: 1px solid grey;
-    padding-bottom: 20px;
+    padding: 20px;
+    background-color: $action1;
+    flex: 1 1 350px;
+    box-shadow: 0px 0px 20px #54898d1c;
+    border-radius: 5px;
+    text-align: justify;
+    &-title {
+      font-size: 19px;
+      font-weight: bold;
+    }
+    &-txt {
+      margin: 10px 0;
+    }
     &:last-child {
-      border: 0;
+      //border: 0;
     }
   }
 }
 
 .test {
-  border: 4px dashed rgb(30, 81, 122);
+  // border: 4px dashed rgb(30, 81, 122);
   text-align: right;
   margin: 20px 0;
   padding: 20px;
+}
+.btn {
+  border: 1px solid grey;
+  padding: 8px 20px;
+  border-radius: 3px;
+  background-color: $action2;
+  display: block;
+  margin: 5px 0;
+}
+.add-note-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #161616d3;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-note-form {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  min-width: 450px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  h3 {
+    margin: 20px 0;
+  }
+  input,
+  textarea {
+    border: 0;
+    outline: none;
+    padding: 8px;
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+  }
+  textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  .btn {
+    border: 1px solid grey;
+    padding: 8px 20px;
+    border-radius: 3px;
+    background-color: $action2;
+    width: 50%;
+  }
+}
+.user-info-area {
+  background-color: #f4f4f4;
+  margin: 20px auto;
+  padding: 30px;
+  border-radius: 5px;
+  p {
+    margin: 10px 0;
+  }
 }

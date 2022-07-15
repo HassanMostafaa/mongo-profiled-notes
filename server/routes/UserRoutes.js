@@ -7,6 +7,7 @@ const {
   loginRequest,
   logoutRequest,
   updateCurrentUserNotes,
+  deleteUserById,
 } = require("../controllers/UsersControllers");
 
 router.get("/", getAllUsers);
@@ -17,6 +18,8 @@ router.post("/", createUser);
 router.post("/login", login);
 
 router.post("/home/notes", updateCurrentUserNotes);
+
+router.post("/delete", deleteUserById);
 
 // router.delete("/:id", deleteUserById);
 

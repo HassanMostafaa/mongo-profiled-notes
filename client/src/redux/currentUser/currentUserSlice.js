@@ -32,6 +32,18 @@ export const logoutThunk = createAsyncThunk(
   }
 );
 
+export const deleteCurrentUser = createAsyncThunk(
+  "deleteUser",
+  async ({ id }, thunkAPI) => {
+    try {
+      // console.log(arg.id);
+      await axios.post("/api/users/delete", { id });
+    } catch (error) {
+      console.log(error.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
 const currentUserSlice = createSlice({
   name: "currentUserSlice",

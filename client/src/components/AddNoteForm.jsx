@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setNotes,
+  toggleNewNoteForm,
   updataNotes,
   updataNotesThunk,
 } from "../redux/notes/notesSlice";
@@ -16,6 +17,7 @@ export const AddNoteForm = ({ user }) => {
     title: "",
     desc: "",
     id: uuidv4(),
+    createdAt: `${new Date()}`,
   });
 
   const handleAddNote = (e) => {
@@ -28,13 +30,24 @@ export const AddNoteForm = ({ user }) => {
         currentUserNotes,
       })
     );
-    setNoteFormData({ title: "", desc: "", id: uuidv4() });
+    setNoteFormData({
+      title: "",
+      desc: "",
+      id: uuidv4(),
+      createdAt: `${new Date()}`,
+    });
+    dispatch(toggleNewNoteForm());
   };
 
   return (
     <>
-      {" "}
-      <form onSubmit={handleAddNote}>
+      <div
+        className="add-note-area"
+        onClick={() => {
+          dispatch(toggleNewNoteForm());
+        }}
+      ></div>
+      <form className="add-note-form" onSubmit={handleAddNote}>
         <h3>Add Note</h3>
         <p>Note Title</p>
         <input
@@ -47,7 +60,7 @@ export const AddNoteForm = ({ user }) => {
           }
         />
         <p>Note Desc</p>
-        <input
+        <textarea
           type="text"
           name=""
           id=""
@@ -56,18 +69,8 @@ export const AddNoteForm = ({ user }) => {
             setNoteFormData({ ...noteFormData, desc: e.target.value })
           }
         />
-        <input type="submit" value="Enter" />
+        <input className="btn" type="submit" value="Enter" />
       </form>
-      <div className="test">
-        <p>test div</p>
-        <button
-          onClick={() => {
-            console.log("TEST BTN CLICKED");
-          }}
-        >
-          button
-        </button>
-      </div>
     </>
   );
 };
