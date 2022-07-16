@@ -17,7 +17,7 @@ export const RegisterForm = () => {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/`,
+        `https://mongo-profiled-notes.herokuapp.com/api/users/`,
         formData
       );
       console.log(res);

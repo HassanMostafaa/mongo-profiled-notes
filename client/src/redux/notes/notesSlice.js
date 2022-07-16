@@ -14,7 +14,7 @@ export const updataNotesThunk = createAsyncThunk(
     try {
       dispatch(updataNotes(note));
       await axios.post(
-        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/home/notes`,
+        `https://mongo-profiled-notes.herokuapp.com/api/users/home/notes`,
         {
           id: userId,
           notes: [...currentUserNotes, note],
@@ -37,7 +37,7 @@ export const setEditedNoteThunk = createAsyncThunk(
       thunkAPI.getState().currentUserReducer.currentUser._id;
 
     await axios.post(
-      `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/home/notes`,
+      `https://mongo-profiled-notes.herokuapp.com/api/users/home/notes`,
       {
         id: currentUserId,
         notes: currentUserNotes,
@@ -56,7 +56,7 @@ export const deleteNoteThunk = createAsyncThunk(
       thunkAPI.dispatch(deleteNote(noteId));
       //syncing database with the redux
       await axios.post(
-        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/home/notes`,
+        `https://mongo-profiled-notes.herokuapp.com/api/users/home/notes`,
         {
           id: userId,
           notes: state.notes.filter((x) => x.id !== noteId),

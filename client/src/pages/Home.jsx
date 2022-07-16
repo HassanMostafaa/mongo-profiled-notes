@@ -26,9 +26,11 @@ export const Home = () => {
 
   useEffect(() => {
     const homeRequest = async () => {
-      const res = await axios.get(`${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/home`);
+      const res = await axios.get(
+        `https://mongo-profiled-notes.herokuapp.com/api/users/home`
+      );
       const data = await res.data;
-    
+
       try {
         setUser(JSON.parse(data.session).user);
         dispatch(setNotes(JSON.parse(data.session).user.notes));

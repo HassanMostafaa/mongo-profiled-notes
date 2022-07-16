@@ -13,7 +13,7 @@ export const loginThunk = createAsyncThunk(
     try {
       const { formData } = arg;
       const res = await axios.post(
-        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/login`,
+        `https://mongo-profiled-notes.herokuapp.com/api/users/login`,
         formData
       );
       const data = await res.data;
@@ -30,7 +30,7 @@ export const logoutThunk = createAsyncThunk(
   /* action */ async (arg, { rejectWithValue }) => {
     try {
       await axios.get(
-        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/logout`
+        `https://mongo-profiled-notes.herokuapp.com/api/users/logout`
       );
     } catch (error) {
       return rejectWithValue(error.message);
@@ -43,7 +43,7 @@ export const deleteCurrentUser = createAsyncThunk(
   async ({ id }, thunkAPI) => {
     try {
       await axios.post(
-        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/delete`,
+        `https://mongo-profiled-notes.herokuapp.com/api/users/delete`,
         { id }
       );
     } catch (error) {
