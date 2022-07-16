@@ -3,13 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "./../redux/currentUser/currentUserSlice";
-import { current } from "@reduxjs/toolkit";
 import {
-  MutatingDots,
+  //MutatingDots,
   Oval,
-  TailSpin,
-  BallTriangle,
+  //TailSpin,
+  // BallTriangle,
 } from "react-loader-spinner";
+import { useEffect } from "react";
 
 export const LoginForm = () => {
   const currentUser = useSelector((state) => state.currentUserReducer);
@@ -31,6 +31,10 @@ export const LoginForm = () => {
       console.log("error dispatchResponse: ", dispatchResponse);
     }
   };
+
+  useEffect(() => {
+    console.log(process.env.REACT_APP_SERVER_MAIN_DIRECTORY);
+  }, []);
 
   return (
     <div className="container">

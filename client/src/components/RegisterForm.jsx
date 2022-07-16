@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { MutatingDots, Oval, TailSpin } from "react-loader-spinner";
+import { /* MutatingDots*/ /*Oval*/ TailSpin } from "react-loader-spinner";
 export const RegisterForm = () => {
   const navitage = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -16,7 +16,10 @@ export const RegisterForm = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("/api/users/", formData);
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/`,
+        formData
+      );
       console.log(res);
       setLoading(false);
       navitage("/login");

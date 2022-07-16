@@ -12,7 +12,10 @@ export const loginThunk = createAsyncThunk(
   /* action */ async (arg, { rejectWithValue }) => {
     try {
       const { formData } = arg;
-      const res = await axios.post("/api/users/login", formData);
+      const res = await axios.post(
+        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/login`,
+        formData
+      );
       const data = await res.data;
 
       return data;
@@ -26,7 +29,9 @@ export const logoutThunk = createAsyncThunk(
   /*type*/ "LOGOUT",
   /* action */ async (arg, { rejectWithValue }) => {
     try {
-      await axios.get("/api/users/logout");
+      await axios.get(
+        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/logout`
+      );
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -37,7 +42,10 @@ export const deleteCurrentUser = createAsyncThunk(
   "deleteUser",
   async ({ id }, thunkAPI) => {
     try {
-      await axios.post("/api/users/delete", { id });
+      await axios.post(
+        `${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/delete`,
+        { id }
+      );
     } catch (error) {
       console.log(error.message);
       return thunkAPI.rejectWithValue(error.message);

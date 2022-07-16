@@ -26,7 +26,7 @@ export const Home = () => {
 
   useEffect(() => {
     const homeRequest = async () => {
-      const res = await axios.get("/api/users/home");
+      const res = await axios.get(`${process.env.REACT_APP_SERVER_MAIN_DIRECTORY}/api/users/home`);
       const data = await res.data;
     
       try {
