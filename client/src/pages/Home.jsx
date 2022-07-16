@@ -5,16 +5,10 @@ import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { AddNoteForm } from "../components/AddNoteForm";
-import {
-  resetNotes,
-  setNotes,
-  toggleNewNoteForm,
-} from "../redux/notes/notesSlice";
-import {
-  logoutThunk,
-  setUserState,
-} from "../redux/currentUser/currentUserSlice";
+import { setNotes, toggleNewNoteForm } from "../redux/notes/notesSlice";
+import { setUserState } from "../redux/currentUser/currentUserSlice";
 import { NotesList } from "../components/NotesList";
+import { EditNoteForm } from "../components/EditNoteForm";
 
 export const Home = () => {
   axios.defaults.withCredentials = true;
@@ -26,33 +20,28 @@ export const Home = () => {
   const showNewNoteForm = useSelector(
     (state) => state.notesReducer.showNewNoteForm
   );
-
-  const handleLogout = async () => {
-    dispatch(logoutThunk());
-    dispatch(resetNotes());
-    navigate("/login");
-  };
-
-  const homeRequest = async () => {
-    const res = await axios.get("/api/users/home");
-    const data = await res.data;
-
-    //console.log(data);
-
-    try {
-      setUser(JSON.parse(data.session).user);
-      dispatch(setNotes(JSON.parse(data.session).user.notes));
-      dispatch(setUserState(JSON.parse(data.session).user));
-    } catch (error) {
-      console.log(error);
-      navigate("/login");
-      alert("SESSION EXPIRED");
-    }
-    setLoading(false);
-  };
+  const showEditNoteForm = useSelector(
+    (state) => state.notesReducer.showEditNoteForm
+  );
 
   useEffect(() => {
+    const homeRequest = async () => {
+      const res = await axios.get("/api/users/home");
+      const data = await res.data;
+    
+      try {
+        setUser(JSON.parse(data.session).user);
+        dispatch(setNotes(JSON.parse(data.session).user.notes));
+        dispatch(setUserState(JSON.parse(data.session).user));
+      } catch (error) {
+        navigate("/login");
+        alert("SESSION EXPIRED");
+      }
+      setLoading(false);
+    };
+
     homeRequest();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -91,6 +80,7 @@ export const Home = () => {
               +
             </button> */}
             {showNewNoteForm && <AddNoteForm user={user} />}
+            {showEditNoteForm && <EditNoteForm />}
           </div>
         </>
       ) : (

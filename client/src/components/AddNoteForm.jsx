@@ -22,7 +22,6 @@ export const AddNoteForm = ({ user }) => {
 
   const handleAddNote = (e) => {
     e.preventDefault();
-    console.log("add note");
     dispatch(
       updataNotesThunk({
         userId: user._id,

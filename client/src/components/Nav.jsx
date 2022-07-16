@@ -25,7 +25,7 @@ export const Nav = () => {
           <>
             {currentUser.username ? (
               <>
-                <Link to="profile">{currentUser.username.toUpperCase()}</Link>
+                <Link to="profile">{currentUser.username}</Link>
                 <Link to="home">Notes</Link>
                 <Link to="login" onClick={handleNavLogout}>
                   Logout

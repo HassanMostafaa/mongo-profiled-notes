@@ -87,9 +87,8 @@ const login = async (req, res) => {
 };
 
 const loginRequest = async (req, res) => {
-  //console.log(req.sessionID);
   const session = await SessionModel.findById({ _id: req.sessionID });
-  //console.log(session);
+
   if (session) {
     return res.send(session);
   } else {
@@ -132,7 +131,7 @@ const updateCurrentUserNotes = async (req, res) => {
 const deleteUserById = async (req, res) => {
   try {
     const { id } = req.body;
-    // console.log(id);
+
     const results = await UserModel.findByIdAndDelete({ _id: id });
 
     return res.status(200).json({ request: "delete user by id", results });

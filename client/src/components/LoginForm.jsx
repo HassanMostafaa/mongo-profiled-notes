@@ -4,7 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "./../redux/currentUser/currentUserSlice";
 import { current } from "@reduxjs/toolkit";
-import { MutatingDots, Oval, TailSpin } from "react-loader-spinner";
+import {
+  MutatingDots,
+  Oval,
+  TailSpin,
+  BallTriangle,
+} from "react-loader-spinner";
 
 export const LoginForm = () => {
   const currentUser = useSelector((state) => state.currentUserReducer);
@@ -52,9 +57,22 @@ export const LoginForm = () => {
             }
             disabled={currentUser.loading ? true : false}
           />
-          <input className="btn" type="submit" value="Login" />
+          <input
+            className="btn"
+            type="submit"
+            value="Login"
+            disabled={currentUser.loading ? true : false}
+          />
           {currentUser.loading && (
-            <TailSpin color="#000" height={80} width={80} />
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Oval
+                color={"#000"}
+                // radius={0}
+                height={60}
+                width={60}
+                secondaryColor={"#111"}
+              />
+            </div>
           )}
         </form>
       </div>

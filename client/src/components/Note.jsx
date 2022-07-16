@@ -1,6 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteNoteThunk } from "../redux/notes/notesSlice";
+import {
+  deleteNoteThunk,
+  editNoteFormData,
+  toggleEditNoteForm,
+} from "../redux/notes/notesSlice";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 export const Note = ({ note }) => {
@@ -12,21 +16,39 @@ export const Note = ({ note }) => {
   };
 
   return (
-    <div className="note">
-      <button
-        className="btn"
-        onClick={handleDeleteNote}
-        style={{ float: "right" }}
-      >
-        Delete
-      </button>
-      <p className="note-title">{note.title}</p>
-      <p className="note-txt">{note.desc}</p>
-      <h6>{note.id}</h6>
-
-      <h6>
-        {formatDistanceToNow(new Date(note.createdAt), { addSuffix: true })}
-      </h6>
-    </div>
+    <>
+      <div className="note">
+        <button
+          className="btn"
+          onClick={handleDeleteNote}
+          style={{ float: "right" }}
+        >
+          Delete
+        </button>{" "}
+        <button
+          className="btn"
+          style={{ float: "right" }}
+          onClick={() => {
+        
+            dispatch(toggleEditNoteForm());
+            dispatch(
+              editNoteFormData({
+                title: note.title,
+                desc: note.desc,
+                id: note.id,
+              })
+            );
+          }}
+        >
+          Edit
+        </button>
+        <p className="note-title">{note.title}</p>
+        <p className="note-txt">{note.desc}</p>
+        <h6>{note.id}</h6>
+        <h6>
+          {formatDistanceToNow(new Date(note.createdAt), { addSuffix: true })}
+        </h6>
+      </div>
+    </>
   );
 };

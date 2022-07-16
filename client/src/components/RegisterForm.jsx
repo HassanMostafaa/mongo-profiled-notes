@@ -14,58 +14,72 @@ export const RegisterForm = () => {
   const handleRegister = async (e) => {
     setLoading(true);
     e.preventDefault();
-    const res = await axios.post("/api/users/", formData);
-    // const data = await res.data;
-    if (res.status === 200) {
-      setLoading(false);
 
-      navitage("/login");
-    } else {
+    try {
+      const res = await axios.post("/api/users/", formData);
+      console.log(res);
       setLoading(false);
-      console.log(res.data);
+      navitage("/login");
+    } catch (error) {
+      setLoading(false);
+      console.log(error.response.data);
     }
   };
 
   return (
     <div className="container">
-      {loading ? (
-        <h1>LOADING</h1>
-      ) : (
-        <div className="login-form-area">
-          <form className="login-form" onSubmit={handleRegister}>
-            <p>Username</p>
-            <input
-              type="text"
-              placeholder="username"
-              value={formData.username}
-              onChange={(e) =>
-                setFormData({ ...formData, username: e.target.value.trim() })
-              }
+      <div className="login-form-area">
+        <form className="login-form" onSubmit={handleRegister}>
+          <p>Username</p>
+          <input
+            type="text"
+            placeholder="username"
+            value={formData.username}
+            disabled={loading ? true : false}
+            onChange={(e) =>
+              setFormData({ ...formData, username: e.target.value.trim() })
+            }
+          />
+          <p>E-mail</p>
+          <input
+            type="email"
+            placeholder="email"
+            value={formData.email}
+            disabled={loading ? true : false}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+          />
+          <p>Password</p>
+          <input
+            type="password"
+            placeholder="password"
+            value={formData.password}
+            autoComplete="off"
+            disabled={loading ? true : false}
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+          />
+          <input
+            type="submit"
+            value="Register"
+            disabled={loading ? true : false}
+          />
+          {loading && (
+            <TailSpin
+              color="#000"
+              height={80}
+              width={80}
+              // color={string}
+              // radius={undefined}
+              // height={undefined}
+              // width={undefined}
+              // secondaryColor={undefined}
             />
-            <p>E-mail</p>
-            <input
-              type="email"
-              placeholder="email"
-              value={formData.email}
-              onChange={(e) =>
-                setFormData({ ...formData, email: e.target.value })
-              }
-            />
-            <p>Password</p>
-            <input
-              type="password"
-              placeholder="password"
-              value={formData.password}
-              autoComplete="off"
-              onChange={(e) =>
-                setFormData({ ...formData, password: e.target.value })
-              }
-            />
-            <input type="submit" value="Register" />
-            {loading && <TailSpin color="#000" height={80} width={80} />}
-          </form>
-        </div>
-      )}
+          )}
+        </form>
+      </div>
     </div>
   );
 };

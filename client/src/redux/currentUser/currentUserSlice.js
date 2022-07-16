@@ -4,6 +4,7 @@ import axios from "axios";
 const initialState = {
   currentUser: null,
   fetched: null,
+  loading: false,
 };
 
 export const loginThunk = createAsyncThunk(
@@ -36,7 +37,6 @@ export const deleteCurrentUser = createAsyncThunk(
   "deleteUser",
   async ({ id }, thunkAPI) => {
     try {
-      // console.log(arg.id);
       await axios.post("/api/users/delete", { id });
     } catch (error) {
       console.log(error.message);
@@ -50,7 +50,6 @@ const currentUserSlice = createSlice({
   initialState,
   reducers: {
     setUserState: (state, { payload }) => {
-      // console.log(payload);
       state.currentUser = payload;
     },
   },
