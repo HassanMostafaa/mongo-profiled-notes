@@ -18,6 +18,12 @@ export const updataNotesThunk = createAsyncThunk(
         {
           id: userId,
           notes: [...currentUserNotes, note],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
         }
       );
     } catch (error) {
@@ -41,6 +47,12 @@ export const setEditedNoteThunk = createAsyncThunk(
       {
         id: currentUserId,
         notes: currentUserNotes,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
       }
     );
     return;
@@ -60,6 +72,12 @@ export const deleteNoteThunk = createAsyncThunk(
         {
           id: userId,
           notes: state.notes.filter((x) => x.id !== noteId),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
         }
       );
       return;

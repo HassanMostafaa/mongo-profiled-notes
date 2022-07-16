@@ -18,7 +18,13 @@ export const RegisterForm = () => {
     try {
       const res = await axios.post(
         `https://mongo-profiled-notes.herokuapp.com/api/users/`,
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
       );
       console.log(res);
       setLoading(false);

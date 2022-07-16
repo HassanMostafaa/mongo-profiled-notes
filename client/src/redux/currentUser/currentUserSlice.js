@@ -14,7 +14,13 @@ export const loginThunk = createAsyncThunk(
       const { formData } = arg;
       const res = await axios.post(
         `https://mongo-profiled-notes.herokuapp.com/api/users/login`,
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
       );
       const data = await res.data;
 
@@ -44,7 +50,13 @@ export const deleteCurrentUser = createAsyncThunk(
     try {
       await axios.post(
         `https://mongo-profiled-notes.herokuapp.com/api/users/delete`,
-        { id }
+        { id },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
       );
     } catch (error) {
       console.log(error.message);
